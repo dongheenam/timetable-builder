@@ -1,8 +1,8 @@
 <script>
   import Add from "carbon-icons-svelte/lib/Add.svelte";
-  import { empty } from "svelte/internal";
 
   import ButtonIcon from "./components/ButtonIcon.svelte";
+  import ClassGroupCard from "./ClassGroupCard.svelte";
 
   /**
    * Class data sets
@@ -11,7 +11,6 @@
    */
 
   const emptyGroup = { name: "", classes: [] };
-  const emptyClassItem = { code: "", staff: "" };
 
   /** @type {ClassGroup[]} */
   export let classGroups = [
@@ -39,12 +38,11 @@
 
   // new group form
   const initialNewGroupForm = {
-    name: "New group",
+    name: "",
+    baseCode: "SE07",
+    numClasses: "1",
   };
   let newGroupForm = initialNewGroupForm;
-
-  // class table information
-  const tableHeads = ["Code", "Staff"];
 
   // group modifiers
   /** @type {(toAdd: Partial<ClassGroup>) => void} */
@@ -56,60 +54,52 @@
   const removeGroup = (toRemove) => {
     classGroups = classGroups.filter((_group, idx) => idx !== toRemove);
   };
-
-  // class modifiers
-  /** @type {(indexGroup: number, toAdd: Partial<ClassItem>) => void} */
-  const appendClass = (indexGroup, toAdd) => {
-    const oldClasses = classGroups[indexGroup].classes;
-    const newClass = { ...emptyClassItem, ...toAdd };
-    classGroups[indexGroup].classes = [...oldClasses, newClass];
-  };
-  /** @type {(indexGroup: number, toRemove: number) => void} */
-  const removeClass = (indexGroup, toRemove) => {
-    const oldClasses = classGroups[indexGroup].classes;
-    classGroups[indexGroup].classes = oldClasses.filter(
-      (_group, idx) => idx !== toRemove
-    );
-  };
 </script>
 
 <div class="root">
   <!-- existing class groups -->
-  {#each classGroups as { name, classes }}
-    <div class="group">
-      <div class="group-title">
-        <h3 contenteditable bind:innerHTML={name} class="focusable" />
-      </div>
-      <table class="table-classes">
-        <thead>
-          <tr>
-            {#each tableHeads as tableHead}
-              <th>{tableHead}</th>
-            {/each}
-          </tr>
-        </thead>
-        <tbody>
-          {#each classes as { code, staff } (code)}
-            <tr>
-              <td contenteditable bind:innerHTML={code} />
-              <td contenteditable bind:innerHTML={staff} />
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
+  {#each classGroups as classGroup, idxGroup}
+    <ClassGroupCard bind:classGroup removeGroup={() => removeGroup(idxGroup)} />
   {/each}
   <!-- add class group -->
-  <div class="group">
-    <div class="group-title group-title-new">
+  <div class="group content-new">
+    <div class="group-title">
       <h3
-        contenteditable
+        contenteditable="true"
         bind:innerHTML={newGroupForm.name}
+        placeholder="Add new group..."
         class="focusable"
       />
-      <ButtonIcon label="Add new class group" onClick={() => appendGroup({})}>
+      <ButtonIcon
+        label="Add new class group"
+        onClick={() => {
+          const newClasses = [];
+          for (let i = 0; i < parseFloat(newGroupForm.numClasses); i++) {
+            newClasses.push({
+              code: newGroupForm.baseCode + (i + 1).toString().padStart(2, "0"),
+              staff: "",
+            });
+          }
+          appendGroup({ name: newGroupForm.name, classes: newClasses });
+        }}
+      >
         <Add size={20} />
       </ButtonIcon>
+    </div>
+    <div class="form-classinfo">
+      Include <input
+        type="number"
+        class="focusable"
+        min={1}
+        max={10}
+        bind:value={newGroupForm.numClasses}
+      />
+      class(es) starting with
+      <span
+        class="focusable"
+        contenteditable="true"
+        bind:innerHTML={newGroupForm.baseCode}
+      /> .
     </div>
   </div>
 </div>
@@ -117,8 +107,11 @@
 <style lang="postcss">
   .root {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    column-gap: 1rem;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, max(15rem, (100% - 2rem)/3)), 1fr)
+    );
+    gap: 1rem;
   }
 
   .group {
@@ -135,27 +128,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
 
     & h3 {
       flex-grow: 1;
       margin-top: 0;
     }
   }
-  .group-title-new {
-    color: var(--gray10);
-  }
 
-  .table-classes {
-    margin-top: 1rem;
+  .form-classinfo {
+    line-height: 1.5;
 
-    & th {
-      text-align: left;
+    & input,
+    & span {
+      font-family: var(--monospace);
+      padding: 0.125rem 0.25rem;
+      margin: 0;
+      border: 1px solid var(--gray8);
+    }
+    & input {
+      color: inherit;
+      display: inline;
+      max-width: calc(2ch + 2rem);
     }
   }
-  .table-classes th {
-    text-align: left;
-  }
-  .table-classes td {
-    font-family: var(--monospace);
+
+  .content-new {
+    color: var(--gray10);
+    &:focus-within {
+      color: var(--text);
+    }
   }
 </style>

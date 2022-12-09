@@ -1,5 +1,5 @@
 <script>
-  import Router, { link, location } from "svelte-spa-router";
+  import Router from "svelte-spa-router";
 
   import Header from "./Header.svelte";
   import Home from "./routes/Home.svelte";
@@ -33,9 +33,9 @@
 <style lang="postcss">
   :global(#app) {
     background-color: var(--gray1);
+    min-height: 100vh;
   }
   .root {
-    min-height: 100vh;
   }
   main {
     width: min(1000px, 95%);

@@ -72,6 +72,16 @@ a {
   outline: 3px solid var(--primary8);
 }
 
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  color: var(--gray10);
+  pointer-events: none;
+  display: block; /* For Firefox */
+}
+[contenteditable=true]:hover {
+  background-color: var(--primary4);
+}
+
 /** typography
  ref: https://github.com/devinhunt/typebase.css
  ref: https://github.com/necolas/normalize.css
