@@ -68,6 +68,10 @@ a {
   }
 }
 
+.focusable:focus {
+  outline: 3px solid var(--primary8);
+}
+
 /** typography
  ref: https://github.com/devinhunt/typebase.css
  ref: https://github.com/necolas/normalize.css

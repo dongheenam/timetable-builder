@@ -1,15 +1,16 @@
 <script>
   import ClassEdit from "../lib/ClassEdit.svelte";
-  import StaffEdit from "../lib/StaffEdit.svelte";
+  import RoomEdit from "../lib/RoomEdit.svelte";
 </script>
 
-<h2>Edit staff</h2>
-<StaffEdit />
+<h2>Class Allocations</h2>
+<ClassEdit />
 
-<h2>Edit classes</h2>
-<div>
-  <ClassEdit />
-</div>
+<h2>Rooms and Timetables</h2>
+<RoomEdit />
 
 <style>
+  h2 {
+    margin-bottom: var(--h3-mt);
+  }
 </style>

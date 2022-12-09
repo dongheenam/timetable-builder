@@ -3,7 +3,7 @@
   --sans-serif: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
   Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
   --serif: serif;
-  --monospace: monospace;
+  --monospace: Cascadia Code, Monaco, SF Mono, Lucida Console, monospace;
 
 
   /* font sizes */
@@ -25,6 +25,10 @@
   --h1-mt: 3rem;
   --h2-mt: 3rem;
   --h3-mt: 1.5rem;
+
+  /* spaces and lengths */
+  --radius-card: 8px;
+  --radius-item: 4px;
 
   /* shadows */
   --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
