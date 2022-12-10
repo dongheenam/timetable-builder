@@ -74,9 +74,10 @@
         label="Add new class group"
         onClick={() => {
           const newClasses = [];
+          const base = newGroupForm.baseCode.trim();
           for (let i = 0; i < parseFloat(newGroupForm.numClasses); i++) {
             newClasses.push({
-              code: newGroupForm.baseCode + (i + 1).toString().padStart(2, "0"),
+              code: base + (i + 1).toString().padStart(2, "0"),
               staff: "",
             });
           }
@@ -87,7 +88,7 @@
       </ButtonIcon>
     </div>
     <div class="form-classinfo">
-      Include <input
+      with <input
         type="number"
         class="focusable"
         min={1}
@@ -99,7 +100,7 @@
         class="focusable"
         contenteditable="true"
         bind:innerHTML={newGroupForm.baseCode}
-      /> .
+      />
     </div>
   </div>
 </div>
@@ -150,6 +151,13 @@
       color: inherit;
       display: inline;
       max-width: calc(2ch + 2rem);
+    }
+    & span {
+      display: inline-block;
+    }
+    & span:empty:before {
+      content: "/";
+      pointer-events: none;
     }
   }
 
