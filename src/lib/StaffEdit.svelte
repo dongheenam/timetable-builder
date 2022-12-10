@@ -10,8 +10,8 @@
 
   // table props
   const columns = [
-    { header: "Code", key: "code", placeholder: "XXX1" },
-    { header: "Staff Name", key: "name", placeholder: "name..." },
+    { header: "Code", key: "code", placeholder: ".." },
+    { header: "Staff Name", key: "name", placeholder: "..." },
   ];
   const staffFactory = () => ({ code: "", name: "" });
 </script>

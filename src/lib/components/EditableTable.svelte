@@ -1,4 +1,6 @@
 <script>
+  // @ts-nocheck
+
   import Add from "carbon-icons-svelte/lib/Add.svelte";
   import RowDelete from "carbon-icons-svelte/lib/RowDelete.svelte";
   import ButtonIcon from "./ButtonIcon.svelte";
@@ -41,6 +43,10 @@
       alert("Cannot add an item with existing key!");
       return;
     }
+    if (columns.every(({ key }) => !toAdd[key])) {
+      alert("Item is empty!");
+      return;
+    }
     items = [...items, toAdd];
     newRow = itemFactory();
   };
@@ -69,32 +75,65 @@
   </thead>
   <tbody class={tbody}>
     {#each items as item, idx (item[key])}
-      <tr class={tr}>
+      <tr
+        class={tr}
+        on:keydown={(e) => {
+          switch (e.key) {
+            case "Delete":
+              e.preventDefault();
+              // bit dodgy; will fix
+              e.currentTarget.previousSibling.childNodes[0].focus();
+              removeRow(idx);
+              break;
+          }
+        }}
+      >
         {#each columns as col}
           <td
-            class={td}
+            class={`focusable ${td}`}
             contenteditable="true"
             bind:innerHTML={item[col.key]}
+            placeholder={col.placeholder}
           />
         {/each}
         <td class={tdBtn}>
-          <ButtonIcon label="remove row" onClick={() => removeRow(idx)}>
+          <ButtonIcon
+            label="remove row"
+            onClick={() => removeRow(idx)}
+            tabindex={-1}
+          >
             <RowDelete size={16} />
           </ButtonIcon>
         </td>
       </tr>
     {/each}
-    <tr class={trNew}>
+    <tr
+      class={trNew}
+      on:keydown={(e) => {
+        switch (e.key) {
+          case "Enter":
+            e.preventDefault();
+            // bit dodgy; will fix
+            e.currentTarget.childNodes[0].focus();
+            addRow(newRow);
+            break;
+        }
+      }}
+    >
       {#each columns as col}
         <td
+          class={`focusable ${td}`}
           contenteditable="true"
           bind:innerHTML={newRow[col.key]}
           placeholder={col.placeholder}
-          class={td}
         />
       {/each}
       <td class={tdBtn}>
-        <ButtonIcon label="add row" onClick={() => addRow(newRow)}>
+        <ButtonIcon
+          label="add row"
+          onClick={() => addRow(newRow)}
+          tabindex={-1}
+        >
           <Add size={16} />
         </ButtonIcon>
       </td>
