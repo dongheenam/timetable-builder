@@ -7,13 +7,12 @@
 </script>
 
 <div class="root">
-  <div class="container-staff">
-    <h2>Staff Codes</h2>
-    <StaffEdit />
-  </div>
+  <h2>Class Allocations</h2>
   <div class="container-class">
-    <h2>Class Allocations</h2>
     <ClassEdit />
+  </div>
+  <div class="container-staff">
+    <StaffEdit />
   </div>
   <div class="container-room">
     <h2>Rooms and Timetables</h2>
@@ -28,14 +27,15 @@
     flex-wrap: wrap;
     column-gap: 2.5rem;
   }
+  h2 {
+    min-width: 100%;
+    margin-bottom: var(--h3-mt);
+  }
+
   .container-class {
     flex-grow: 1;
   }
   .container-room {
     min-width: 100%;
-  }
-
-  h2 {
-    margin-bottom: var(--h3-mt);
   }
 </style>
