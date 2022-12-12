@@ -3,7 +3,7 @@
 
   import Add from "carbon-icons-svelte/lib/Add.svelte";
   import ButtonIcon from "./components/ButtonIcon.svelte";
-  import ClassGroupCard from "./ClassGroupCard.svelte";
+  import EditClassGroup from "./EditClassGroup.svelte";
 
   const emptyGroup = { name: "", classes: [] };
 
@@ -39,7 +39,7 @@
 <div class="root">
   <!-- existing class groups -->
   {#each $classGroups as classGroup, idxGroup}
-    <ClassGroupCard bind:classGroup removeGroup={() => removeGroup(idxGroup)} />
+    <EditClassGroup bind:classGroup removeGroup={() => removeGroup(idxGroup)} />
   {/each}
   <!-- add class group -->
   <div class="group content-new">

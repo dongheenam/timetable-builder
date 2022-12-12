@@ -1,5 +1,6 @@
-import { writable } from "svelte/store";
-import { persist } from "./persist";
+import { writable, get } from "svelte/store";
+import persist from "./persist";
+import slice from "./slice";
 
 /**
  * Class data sets
@@ -48,3 +49,34 @@ classGroups.subscribe(($classGroups) => {
     return prev;
   });
 });
+
+const DEFAULT_LESSON = {
+  day: "",
+  period: "",
+  room: "",
+};
+/**
+ * timetable information
+ */
+export const timetables = persist(
+  "ttb-timetables",
+  writable({
+    SE0701: [
+      { day: 1, period: 1, room: "SN203" },
+      { day: 2, period: 5, room: "SC302" },
+    ],
+    SE0702: [
+      { day: 1, period: 1, room: "SN203" },
+      { day: 2, period: 5, room: "SC302" },
+    ],
+  })
+);
+export const getTimetable = (classCode) => {
+  if (!(classCode in get(timetables))) {
+    timetables.update((prev) => ({
+      ...prev,
+      [classCode]: [{ ...DEFAULT_LESSON }],
+    }));
+  }
+  return slice(timetables, classCode);
+};

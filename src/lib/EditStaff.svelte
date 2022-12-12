@@ -2,9 +2,6 @@
   import { staffNames } from "./stores";
   import EditableTable from "./components/EditableTable.svelte";
 
-  // props
-  $: console.log($staffNames);
-
   // table props
   const columns = [
     { header: "Code", key: "code", placeholder: ".." },
