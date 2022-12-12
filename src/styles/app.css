@@ -10,8 +10,7 @@
   box-sizing: border-box;
 }
 html,
-body,
-#app {
+body {
   height: 100%;
 }
 #app {
@@ -72,13 +71,13 @@ a {
   outline: 3px solid var(--primary8);
 }
 
-[contenteditable=true]:empty:before{
+[contenteditable="true"]:empty:before {
   content: attr(placeholder);
   color: var(--gray10);
   pointer-events: none;
   display: block; /* For Firefox */
 }
-[contenteditable=true]:hover {
+[contenteditable="true"]:hover {
   background-color: var(--primary4);
 }
 

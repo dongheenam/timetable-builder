@@ -42,11 +42,11 @@
   // define logics for creating and removing rows
   let newRow = itemFactory();
   const addRow = (toAdd) => {
-    if (items.some((item) => item[key] === toAdd[key])) {
+    if (key && items.some((item) => item[key] === toAdd[key])) {
       alert("Cannot add an item with existing key!");
       return;
     }
-    if (columns.every(({ key }) => !toAdd[key])) {
+    if (key && columns.every(({ key }) => !toAdd[key])) {
       alert("Item is empty!");
       return;
     }
@@ -149,6 +149,8 @@
 <style lang="postcss">
   .table {
     margin-top: 0;
+    padding: 0.25rem;
+    border: 1px solid var(--gray8);
   }
   .tr:nth-child(even) {
     background-color: var(--primary2);

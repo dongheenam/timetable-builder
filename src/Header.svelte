@@ -19,6 +19,9 @@
 
 <style>
   header {
+    position: sticky;
+    top: 0;
+
     display: flex;
     align-items: center;
     background-color: var(--bg);

@@ -1,5 +1,5 @@
 <script>
-  import { classGroups, timetables } from "./stores";
+  import { classGroups } from "./stores";
   import EditTimetableGroup from "./EditTimetableGroup.svelte";
 </script>
 
@@ -7,5 +7,13 @@
   {#each $classGroups as classGroup}
     <EditTimetableGroup {classGroup} />
   {/each}
-  <pre>{JSON.stringify($timetables, null, 2)}</pre>
 </div>
+
+<style>
+  .root {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>

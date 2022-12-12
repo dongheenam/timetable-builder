@@ -36,6 +36,7 @@
     min-height: 100vh;
   }
   .root {
+    padding-bottom: 5rem;
   }
   main {
     width: min(1000px, 95%);

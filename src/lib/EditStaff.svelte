@@ -38,6 +38,7 @@
     white-space: nowrap;
   }
   .table-wrapper :global(.table) {
-    width: 100%;
+    margin: auto;
+    width: calc(100% - 6px);
   }
 </style>
