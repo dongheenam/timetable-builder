@@ -1,6 +1,5 @@
 <script>
   // @ts-nocheck
-
   import Add from "carbon-icons-svelte/lib/Add.svelte";
   import RowDelete from "carbon-icons-svelte/lib/RowDelete.svelte";
   import ButtonIcon from "./ButtonIcon.svelte";
@@ -11,14 +10,12 @@
     { header: "Col 1", key: 1, placeholder: "...1" },
     { header: "Col 2", key: 0, placeholder: "...2" },
   ];
-  /** @type {number | string}*/
-  export let key = 0;
+  /** @type {number | string | undefined}*/
+  export let key = undefined;
   /** @type {any[][] | { [key: string]: any }[]} */
   export let items = [
     ["Item 0-0", "Item 0-1"],
     ["Item 1-0", "Item 1-1"],
-    ["Item 2-0", "Item 2-1"],
-    ["Item 3-0", "Item 3-1"],
   ];
   /** @type {() => typeof items[number] } */
   export let itemFactory = () => [
@@ -36,7 +33,13 @@
     tdBtn: undefined,
   };
 
-  // variables and functions
+  // helper for keys
+  const getKey = (item, idx) => {
+    if (key === undefined) return idx;
+    return item[key];
+  };
+
+  // define logics for creating and removing rows
   let newRow = itemFactory();
   const addRow = (toAdd) => {
     if (items.some((item) => item[key] === toAdd[key])) {
@@ -53,6 +56,8 @@
   const removeRow = (toRemove) => {
     items = items.filter((_item, idx) => idx !== toRemove);
   };
+
+  // merge class names
   const {
     table = "table",
     thead = "thead",
@@ -74,14 +79,14 @@
     </tr>
   </thead>
   <tbody class={tbody}>
-    {#each items as item, idx (item[key])}
+    {#each items as item, idx (getKey(item, idx))}
       <tr
         class={tr}
         on:keydown={(e) => {
           switch (e.key) {
             case "Delete":
               e.preventDefault();
-              // bit dodgy; will fix
+              // move focus to the next column
               e.currentTarget.previousSibling.childNodes[0].focus();
               removeRow(idx);
               break;
@@ -113,7 +118,7 @@
         switch (e.key) {
           case "Enter":
             e.preventDefault();
-            // bit dodgy; will fix
+            // move focus to the first column
             e.currentTarget.childNodes[0].focus();
             addRow(newRow);
             break;

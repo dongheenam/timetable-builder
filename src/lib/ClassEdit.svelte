@@ -1,40 +1,11 @@
 <script>
-  import Add from "carbon-icons-svelte/lib/Add.svelte";
+  import { classGroups } from "./stores";
 
+  import Add from "carbon-icons-svelte/lib/Add.svelte";
   import ButtonIcon from "./components/ButtonIcon.svelte";
   import ClassGroupCard from "./ClassGroupCard.svelte";
 
-  /**
-   * Class data sets
-   * @typedef { {code: string; staff: string} } ClassItem
-   * @typedef { {name: string; classes: ClassItem[]} } ClassGroup
-   */
-
   const emptyGroup = { name: "", classes: [] };
-
-  /** @type {ClassGroup[]} */
-  export let classGroups = [
-    {
-      name: "Year 7 Science",
-      classes: [
-        { code: "SE0701", staff: "AIG" },
-        { code: "SE0702", staff: "DXN" },
-        { code: "SE0703", staff: "TWP" },
-        { code: "SE0704", staff: "TWP" },
-        { code: "SE0705", staff: "JZF" },
-      ],
-    },
-    {
-      name: "Year 8 Science",
-      classes: [
-        { code: "SE0801", staff: "DXN" },
-        { code: "SE0802", staff: "JXH" },
-        { code: "SE0803", staff: "TFS" },
-        { code: "SE0804", staff: "JSS" },
-        { code: "SE0805", staff: "RP" },
-      ],
-    },
-  ];
 
   // new group form
   const initialNewGroupForm = {
@@ -45,20 +16,29 @@
   let newGroupForm = initialNewGroupForm;
 
   // group modifiers
-  /** @type {(toAdd: Partial<ClassGroup>) => void} */
+  const removeGroup = (toRemove) => {
+    $classGroups = $classGroups.filter((_group, idx) => idx !== toRemove);
+  };
   const appendGroup = (toAdd) => {
     const newGroup = { ...emptyGroup, ...toAdd };
-    classGroups = [...classGroups, newGroup];
+    $classGroups = [...$classGroups, newGroup];
   };
-  /** @type {(toRemove: number) => void} */
-  const removeGroup = (toRemove) => {
-    classGroups = classGroups.filter((_group, idx) => idx !== toRemove);
+  const createClasses = () => {
+    const newClasses = [];
+    const base = newGroupForm.baseCode.trim();
+    for (let i = 0; i < parseFloat(newGroupForm.numClasses); i++) {
+      newClasses.push({
+        code: base + (i + 1).toString().padStart(2, "0"),
+        staff: "",
+      });
+    }
+    return newClasses;
   };
 </script>
 
 <div class="root">
   <!-- existing class groups -->
-  {#each classGroups as classGroup, idxGroup}
+  {#each $classGroups as classGroup, idxGroup}
     <ClassGroupCard bind:classGroup removeGroup={() => removeGroup(idxGroup)} />
   {/each}
   <!-- add class group -->
@@ -73,15 +53,9 @@
       <ButtonIcon
         label="Add new class group"
         onClick={() => {
-          const newClasses = [];
-          const base = newGroupForm.baseCode.trim();
-          for (let i = 0; i < parseFloat(newGroupForm.numClasses); i++) {
-            newClasses.push({
-              code: base + (i + 1).toString().padStart(2, "0"),
-              staff: "",
-            });
-          }
+          const newClasses = createClasses();
           appendGroup({ name: newGroupForm.name, classes: newClasses });
+          newGroupForm.name = "";
         }}
       >
         <Add size={20} />

@@ -1,12 +1,9 @@
 <script>
+  import { staffNames } from "./stores";
   import EditableTable from "./components/EditableTable.svelte";
 
   // props
-  export let staffs = [
-    { code: "AIS", name: "Andrew Shelley" },
-    { code: "TWP", name: "Thomas Pask" },
-    { code: "JZF", name: "James Frith" },
-  ];
+  $: console.log($staffNames);
 
   // table props
   const columns = [
@@ -18,12 +15,12 @@
 
 <div class="group">
   <div class="group-title">
-    <h3>Staff codes</h3>
+    <h3>Staff names</h3>
   </div>
   <span>Staff codes entered in the tables on the right will appear here.</span>
   <div class="table-wrapper">
     <EditableTable
-      bind:items={staffs}
+      bind:items={$staffNames}
       {columns}
       key="code"
       itemFactory={staffFactory}

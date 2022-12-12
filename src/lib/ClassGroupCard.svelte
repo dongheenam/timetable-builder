@@ -1,12 +1,10 @@
 <script>
   import Close from "carbon-icons-svelte/lib/Close.svelte";
-
   import ButtonIcon from "./components/ButtonIcon.svelte";
   import EditableTable from "./components/EditableTable.svelte";
 
   // props
   export let classGroup = { name: "", classes: [] };
-  let { name, classes } = classGroup;
 
   export let removeGroup;
 
@@ -21,17 +19,21 @@
     const nextId = (parseFloat(id) + 1).toString().padStart(2, "0");
     return base + nextId;
   };
-  const classFactory = () => ({
-    code: classes.length > 0 ? nextCode(classes[classes.length - 1].code) : "",
-    staff: "",
-  });
+  const classFactory = () => {
+    const numClasses = classGroup.classes.length;
+    return {
+      code:
+        numClasses > 0 ? nextCode(classGroup.classes[numClasses - 1].code) : "",
+      staff: "",
+    };
+  };
 </script>
 
 <div class="group">
   <div class="group-title">
     <h3
       contenteditable="true"
-      bind:innerHTML={name}
+      bind:innerHTML={classGroup.name}
       placeholder="Group name..."
       class="focusable"
     />
@@ -40,7 +42,7 @@
     </ButtonIcon>
   </div>
   <EditableTable
-    bind:items={classes}
+    bind:items={classGroup.classes}
     {columns}
     key="code"
     itemFactory={classFactory}
