@@ -1,3 +1,5 @@
+import { get } from "svelte/store";
+
 const isBrowser = typeof Storage !== "undefined";
 const fromStorage = (key) => {
   try {
@@ -36,8 +38,12 @@ const persist = (key, store) => {
   return {
     ...store,
     set: (value) => {
+      store.set(value);
       toStorage(key, value);
-      return store.set(value);
+    },
+    update: (updater) => {
+      store.update(updater);
+      toStorage(key, get(store));
     },
   };
 };

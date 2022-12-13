@@ -4,21 +4,18 @@
   import Header from "./Header.svelte";
   import Home from "./routes/Home.svelte";
   import Edit from "./routes/Edit.svelte";
-  import SaveLoad from "./routes/SaveLoad.svelte";
-  import Timetable from "./routes/Timetable.svelte";
+  import View from "./routes/View.svelte";
 
   const routes = {
     "/": Home,
     "/edit": Edit,
-    "/save": SaveLoad,
-    "/timetable": Timetable,
+    "/view": View,
   };
 
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/edit", label: "Edit" },
-    { href: "/timetable", label: "Timetable" },
-    { href: "/save", label: "Save/Load" },
+    { href: "/view", label: "View" },
   ];
 </script>
 

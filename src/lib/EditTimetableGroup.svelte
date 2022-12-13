@@ -6,7 +6,7 @@
 
   export let classGroup;
 
-  let isOpen = true;
+  let isOpen = false;
   const toggleOpen = () => (isOpen = !isOpen);
 </script>
 
@@ -15,9 +15,9 @@
     <h3>{classGroup.name}</h3>
     <ButtonIcon label="toggle group" onClick={toggleOpen}>
       {#if isOpen}
-        <ChevronUp size={20} />
-      {:else}
         <ChevronDown size={20} />
+      {:else}
+        <ChevronUp size={20} />
       {/if}
     </ButtonIcon>
   </div>

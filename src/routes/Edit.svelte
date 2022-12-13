@@ -2,11 +2,16 @@
   import EditClass from "../lib/EditClass.svelte";
   import EditTimetable from "../lib/EditTimetable.svelte";
   import EditStaff from "../lib/EditStaff.svelte";
+  import SaveLoad from "../lib/SaveLoad.svelte";
 
   import "./Edit.css";
 </script>
 
 <div class="root">
+  <h2>Save/Load</h2>
+  <div class="container-save">
+    <SaveLoad />
+  </div>
   <h2>Class Allocations</h2>
   <div class="container-class">
     <EditClass />
@@ -31,11 +36,12 @@
     min-width: 100%;
     margin-bottom: var(--h3-mt);
   }
+  .container-room,
+  .container-save {
+    min-width: 100%;
+  }
 
   .container-class {
     flex-grow: 1;
-  }
-  .container-room {
-    min-width: 100%;
   }
 </style>
