@@ -4,7 +4,17 @@
   export let settings = {};
   export let tableElement;
 
-  const printElement = (element) => {
+  const date = new Date();
+  const dateString = [
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(),
+  ].join("");
+  const filename = "timetable_" + dateString;
+
+  const printElement = (element, filename) => {
+    const documentTitle = document.title;
+
     if (!element) {
       console.error("Attempted to print non-existing element!");
       return;
@@ -17,8 +27,12 @@
       document.body.appendChild(printArea);
 
       // initiate print
+      document.title = filename;
       window.print();
     } finally {
+      // revert the document title
+      document.title = documentTitle;
+
       // remove the copied element from body
       const printArea = document.getElementById("print-area");
       if (printArea) {
@@ -41,7 +55,8 @@
     <Button
       color="primary"
       variant="filled"
-      onClick={() => printElement(tableElement)}>Print timetable</Button
+      onClick={() => printElement(tableElement, filename)}
+      >Print timetable</Button
     >
   </div>
 </div>

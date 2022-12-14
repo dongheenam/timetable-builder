@@ -7,6 +7,10 @@
   import "./Edit.css";
 </script>
 
+<svelte:head>
+  <title>Timetable Builder - Edit</title>
+</svelte:head>
+
 <div class="root">
   <h2>Save/Load</h2>
   <div class="container-save">

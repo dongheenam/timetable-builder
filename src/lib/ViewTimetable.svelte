@@ -67,7 +67,9 @@
   );
 
   // table strings
-  const today = new Intl.DateTimeFormat("en-AU").format(new Date());
+  const formatter = new Intl.DateTimeFormat("en-AU");
+  const date = new Date();
+  const today = formatter.format(date);
   const preamble = `Timetable current as of ${today}.`;
   const titles = ["WEEK A", "WEEK B"];
   const headerRows = [

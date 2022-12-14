@@ -2,6 +2,10 @@
   import ViewTimetable from "../lib/ViewTimetable.svelte";
 </script>
 
+<svelte:head>
+  <title>Timetable Builder - View</title>
+</svelte:head>
+
 <div class="root">
   <h2>View Timetable</h2>
   <ViewTimetable />
