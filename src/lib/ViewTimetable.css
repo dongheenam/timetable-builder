@@ -1,0 +1,36 @@
+@media screen {
+  #print-area {
+    display: none;
+  }
+}
+
+@media print {
+  #app {
+    display: none;
+  }
+  #print-area {
+    margin: 0 0.6cm;
+  }
+
+  #print-area th,
+  #print-area td {
+    border: 0.75px solid black;
+  }
+  #print-area .title {
+    font-size: 15px;
+  }
+  #print-area .lesson {
+    font-size: 14px;
+    letter-spacing: -0.05ex;
+  }
+  #print-area .lesson.monospace {
+    font-family: monospace;
+    font-size: 14.5px;
+  }
+  #print-area .title-row:not(:first-of-type) {
+    page-break-before: always;
+  }
+  #print-area tr {
+    page-break-inside: avoid;
+  }
+}

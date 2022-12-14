@@ -40,10 +40,14 @@
   }
 
   .root :global(.table) {
+    table-layout: auto;
     margin: 1rem 0 0 1.5rem;
     width: 15rem;
   }
   .root :global(.td:first-child) {
     text-align: right;
+  }
+  .root :global(.td) {
+    min-height: 1.5em;
   }
 </style>

@@ -11,9 +11,7 @@ import slice from "./slice";
 /** @type {import("svelte/store").Writable<ClassGroup[]>} */
 export const classGroups = persist(
   "ttb-classGroups",
-  writable([
-    { name: "Year 7 Science", classes: [{ code: "SE0701", staff: "JZF" }] },
-  ])
+  writable([{ name: "Year 7", classes: [{ code: "SE0701", staff: "JZF" }] }])
 );
 
 // extract the list of staff codes from classes
@@ -30,7 +28,7 @@ const getStaffCodes = ($classGroups) => {
  */
 export const staffNames = persist(
   "ttb-staffNames",
-  writable([{ code: "JZF", name: "James Frith" }])
+  writable([{ code: "JZF", name: "James Fritz" }])
 );
 classGroups.subscribe(($classGroups) => {
   const newCodes = getStaffCodes($classGroups);
@@ -61,21 +59,14 @@ const DEFAULT_LESSON = {
 export const timetables = persist(
   "ttb-timetables",
   writable({
-    SE0701: [
-      { day: 1, period: 1, room: "SN203" },
-      { day: 2, period: 5, room: "SC302" },
-    ],
-    SE0702: [
-      { day: 1, period: 1, room: "SN203" },
-      { day: 2, period: 5, room: "SC302" },
-    ],
+    SE0701: [{ day: "1", period: "1", room: "SN203" }],
   })
 );
 export const getTimetable = (classCode) => {
   if (!(classCode in get(timetables))) {
     timetables.update((prev) => ({
       ...prev,
-      [classCode]: [{ ...DEFAULT_LESSON }],
+      [classCode]: [],
     }));
   }
   return slice(timetables, classCode);

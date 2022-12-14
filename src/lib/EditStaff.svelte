@@ -4,8 +4,8 @@
 
   // table props
   const columns = [
-    { header: "Code", key: "code", placeholder: ".." },
-    { header: "Staff Name", key: "name", placeholder: "..." },
+    { header: "Code", key: "code" },
+    { header: "Staff Name", key: "name", placeholder: "type..." },
   ];
   const staffFactory = () => ({ code: "", name: "" });
 </script>
@@ -38,6 +38,7 @@
     white-space: nowrap;
   }
   .table-wrapper :global(.table) {
+    table-layout: auto;
     margin: auto;
     width: calc(100% - 6px);
   }

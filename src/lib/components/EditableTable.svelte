@@ -148,6 +148,8 @@
 
 <style lang="postcss">
   .table {
+    table-layout: fixed;
+    border-collapse: collapse;
     margin-top: 0;
     padding: 0.25rem;
     border: 1px solid var(--gray8);

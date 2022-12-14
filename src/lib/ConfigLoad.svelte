@@ -33,6 +33,8 @@
       }
     }
     isReady = false;
+    files = undefined;
+    config = undefined;
     status = "Load success!";
   };
 </script>
