@@ -104,7 +104,7 @@
         <td class={tdBtn}>
           <ButtonIcon
             label="remove row"
-            onClick={() => removeRow(idx)}
+            on:click={() => removeRow(idx)}
             tabindex={-1}
           >
             <RowDelete size={16} />
@@ -136,7 +136,7 @@
       <td class={tdBtn}>
         <ButtonIcon
           label="add row"
-          onClick={() => addRow(newRow)}
+          on:click={() => addRow(newRow)}
           tabindex={-1}
         >
           <Add size={16} />

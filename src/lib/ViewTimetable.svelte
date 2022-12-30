@@ -1,6 +1,6 @@
 <script>
   import { derived } from "svelte/store";
-  import { classGroups, timetables } from "./stores";
+  import { classGroups, timetables, settings } from "./stores";
   import TimetableCell from "./TimetableCell.svelte";
   import TimetableSettings from "./TimetableSettings.svelte";
 
@@ -12,7 +12,6 @@
   const dash = "\u2013"; // en dash
 
   // calculate the timetable
-
   const expandToLessons = (classes, $timetables) => {
     const lessons = [];
     for (const cls of classes) {
@@ -92,15 +91,11 @@
     "10 FRIDAY",
   ];
 
-  // table settings
-  let settings = {
-    isMonospace: true,
-  };
   let tableElement;
 </script>
 
 <div class="root">
-  <TimetableSettings bind:settings {tableElement} />
+  <TimetableSettings {tableElement} />
   <table class="timetable" bind:this={tableElement}>
     <caption class="preamble">{preamble}</caption>
     <!-- column styling -->
@@ -131,7 +126,7 @@
           {#each dayEntries as periodEntry}
             <TimetableCell
               lessonGroups={periodEntry}
-              isMonospace={settings.isMonospace}
+              isMonospace={$settings.isMonospace}
             />
           {/each}
         </tr>
@@ -177,7 +172,7 @@
 
   .header-col,
   .header-row {
-    font-size: large;
+    font-size: 1.25em;
     font-family: Times New Roman;
     font-weight: 700;
     white-space: pre-line;

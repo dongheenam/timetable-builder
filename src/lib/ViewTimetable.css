@@ -1,31 +1,34 @@
+/* hide this div during printing */
 @media screen {
   #print-area {
     display: none;
   }
 }
 
+/* page setup */
+@page {
+  margin: 0.6cm;
+}
 @media print {
   #app {
     display: none;
   }
   #print-area {
-    margin: 0 0.6cm;
+    font-size: var(--base-font, 14px);
   }
-
   #print-area th,
   #print-area td {
     border: 0.75px solid black;
   }
-  #print-area .title {
-    font-size: 15px;
+  #print-area .lesson-title {
+    font-size: 1.1em;
   }
   #print-area .lesson {
-    font-size: 14px;
+    font-size: 1em;
     letter-spacing: -0.05ex;
   }
   #print-area .lesson.monospace {
-    font-family: monospace;
-    font-size: 14.5px;
+    font-family: Menlo, monospace;
   }
   #print-area .title-row:not(:first-of-type) {
     page-break-before: always;

@@ -71,3 +71,15 @@ export const getTimetable = (classCode) => {
   }
   return slice(timetables, classCode);
 };
+
+
+/**
+ * Timetable view settings
+ */
+export const settings = persist(
+  "ttb-settings",
+  writable({
+    isMonospace: false,
+    baseFont_pt: 10.5,
+  }),
+);

@@ -6,7 +6,7 @@
 <td>
   {#each lessonGroups as group}
     <div class="lesson-group">
-      <span class="title">{group.name}</span>
+      <span class="lesson-title">{group.name}</span>
       {#each group.lessons as lesson}
         <span class="lesson" class:monospace={isMonospace}
           >{lesson.code} {lesson.room} {lesson.staff}</span
@@ -26,7 +26,7 @@
   .lesson-group span {
     display: block;
   }
-  .title {
+  .lesson-title {
     font-weight: 700;
     margin-bottom: 0.25em;
   }
