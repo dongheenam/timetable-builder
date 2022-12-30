@@ -41,7 +41,7 @@
 
 <div class="group">
   <div class="group-title"><h3>Load config file</h3></div>
-  <p>Download the current status as a config file for backup purposes.</p>
+  <p>Upload the saved config file.</p>
   <div class="control">
     <input type="file" bind:files accept=".json" />
     {#if isReady}
