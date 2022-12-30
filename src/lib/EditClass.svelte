@@ -52,7 +52,7 @@
       />
       <ButtonIcon
         label="Add new class group"
-        onClick={() => {
+        on:click={() => {
           const newClasses = createClasses();
           appendGroup({ name: newGroupForm.name, classes: newClasses });
           newGroupForm.name = "";

@@ -47,7 +47,7 @@
   <div class="group-title"><h3>Save as config file</h3></div>
   <p>Download the current status as a config file for backup purposes.</p>
   <div class="control">
-    <Button color="primary" variant="filled" onClick={() => createConfig()}
+    <Button color="primary" variant="filled" on:click={() => createConfig()}
       >Create file</Button
     >
     {#if isReady}

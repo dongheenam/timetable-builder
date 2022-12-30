@@ -37,7 +37,7 @@
       placeholder="Group name..."
       class="focusable"
     />
-    <ButtonIcon label="Remove class group" onClick={removeGroup}>
+    <ButtonIcon label="Remove class group" on:click={removeGroup}>
       <Close size={20} />
     </ButtonIcon>
   </div>

@@ -1,12 +1,9 @@
 <script>
-  /** @type {null | (() => void) } */
-  export let onClick = null;
-
   /** @type {string} */
   export let label;
 </script>
 
-<button on:click={onClick} aria-label={label} {...$$restProps}>
+<button on:click aria-label={label} {...$$restProps}>
   <slot />
 </button>
 

@@ -45,7 +45,7 @@
   <div class="control">
     <input type="file" bind:files accept=".json" />
     {#if isReady}
-      <Button color="primary" variant="filled" onClick={() => loadConfig()}
+      <Button color="primary" variant="filled" on:click={() => loadConfig()}
         >Load config</Button
       >
     {/if}

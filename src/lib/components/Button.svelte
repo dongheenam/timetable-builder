@@ -5,9 +5,6 @@
   /** @type {"default" | "outline" | "subtle" | "filled" }*/
   export let variant = "default";
 
-  /** @type {null | (() => void) } */
-  export let onClick = null;
-
   /** @type {{[key: string]: string | null}} */
   $: vars = {
     text: null,
@@ -53,7 +50,7 @@
   style:--btn-bg={vars.bg}
   style:--btn--hover-bg={vars.bgHover}
   style:--btn--active-bg={vars.bgActive}
-  on:click={onClick}
+  on:click
   {...$$restProps}
 >
   <slot />

@@ -13,7 +13,7 @@
 <div class="group">
   <div class="group-title">
     <h3>{classGroup.name}</h3>
-    <ButtonIcon label="toggle group" onClick={toggleOpen}>
+    <ButtonIcon label="toggle group" on:click={toggleOpen}>
       {#if isOpen}
         <ChevronDown size={20} />
       {:else}
