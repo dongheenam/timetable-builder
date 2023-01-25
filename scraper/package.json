@@ -1,0 +1,10 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "Web scraper to create config.json file automatically",
+  "main": "index.js",
+  "author": "Donghee Nam",
+  "dependencies": {
+    "puppeteer": "^19.6.0"
+  }
+}
