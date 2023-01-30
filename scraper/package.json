@@ -1,10 +1,13 @@
 {
   "name": "scraper",
   "version": "1.0.0",
+  "type": "module",
   "description": "Web scraper to create config.json file automatically",
   "main": "index.js",
   "author": "Donghee Nam",
+  "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "puppeteer": "^19.6.0"
   }
 }

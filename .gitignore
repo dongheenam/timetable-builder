@@ -1,3 +1,9 @@
+# Local variables
+.env
+
+# Output files
+scraper/out/*
+
 # Logs
 logs
 *.log
