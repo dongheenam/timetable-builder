@@ -21,6 +21,9 @@ export const GROUP_PATTERNS = {
   "Year 12 IB": /SI[BCP]H120\d/,
   "Year 12 AG": /SA120\d/,
 };
+// regex patterns to match the IB classes
+export const IB_HL_PATTERN = /SI[BCP]H1[12]0\d/;
+export const IB_SL_PATTERN = /SI[BCP]S1[12]0\d/;
 
 // DOM IDs
 export const CLASS_TITLE_SELECTOR = "#mainCDARoundPanel_HTC_DivDetails_0";

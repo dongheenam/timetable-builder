@@ -1,12 +1,12 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 
-import { URL, URL_WELCOME, GROUP_PATTERNS } from "./src/constants.js";
+import { URL, URL_WELCOME, GROUP_PATTERNS, IB_HL_PATTERN, IB_SL_PATTERN } from "./src/constants.js";
 import readClasses from "./src/readClasses.js";
 import readRooms from "./src/readRooms.js";
 
 
-const scrape = async () => {
+const scrapeScience = async () => {
 
   // launch the browser
   const browser = await puppeteer.launch({ headless: false });
@@ -26,10 +26,22 @@ const scrape = async () => {
     ...(await readClasses(page, { learningArea : "SCIAG" })),
   ];
 
+  // combine the IB classes
+  const classesUpdated = [];
+  for (const cls of classes) {
+    if (IB_HL_PATTERN.test(cls.code)) {
+      cls.code = cls.code.replace("H", "");
+    }
+    if (IB_SL_PATTERN.test(cls.code)) {
+      continue
+    }
+    classesUpdated.push(cls);
+  }
+
   // group the classes
   const classesByGroup = [];
   for (const [groupName, codeRegex] of Object.entries(GROUP_PATTERNS)) {
-    const classesInGroup = classes.filter((cls) => codeRegex.test(cls.code));
+    const classesInGroup = classesUpdated.filter((cls) => codeRegex.test(cls.code));
     classesByGroup.push({ 
       name: groupName, 
       classes: classesInGroup.map((cls) => ({ code: cls.code, staff: cls.staff })),
@@ -37,7 +49,7 @@ const scrape = async () => {
   }
 
   // query the rooms
-  const rooms = await readRooms(page, classes);
+  const rooms = await readRooms(page, classesUpdated);
 
   // create a JSON file
   const data = {
@@ -50,4 +62,4 @@ const scrape = async () => {
   await browser.close();
   console.log("all done!");
 }
-scrape();
+scrapeScience();
