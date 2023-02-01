@@ -6,11 +6,9 @@
   export let tableElement;
 
   const date = new Date();
-  const dateString = [
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate(),
-  ].join("");
+  const dateString = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+    .map((num) => num.toString().padStart(2, "0"))
+    .join("");
   const filename = "timetable_" + dateString;
 
   const printElement = (element, filename) => {

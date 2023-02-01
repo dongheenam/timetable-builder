@@ -27,8 +27,9 @@ const readRooms = async (page, classes) => {
       for (const row of rows) {
         const cells = Array.from(row.querySelectorAll("td"));
 
+        // period 5 is recorded as period 6 in syn
         const day = cells[1].innerHTML;
-        const period = cells[2].innerHTML;
+        const period = cells[2].innerHTML === "6" ? "5" : cells[2].innerHTML;
         const room = cells[4].innerHTML;
         
         timetableList.push({day, period, room});
