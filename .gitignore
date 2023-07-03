@@ -4,6 +4,9 @@
 # Output files
 scraper/out/*
 .next/*
+/build
+/.svelte-kit
+/package
 
 # Logs
 logs
