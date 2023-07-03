@@ -8,7 +8,8 @@
 </svelte:head>
 
 <section>
-	<p>Hello, SvelteKit!</p>
+	<h1>Home</h1>
+  <p>Press the Edit button on the top menu to begin.</p>
 </section>
 
 <style>
