@@ -1,3 +1,6 @@
+# Previous version
+src_old/
+
 # Local variables
 .env*
 

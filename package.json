@@ -29,6 +29,7 @@
     "vite": "^4.3.6"
   },
   "dependencies": {
+    "@tabler/icons-svelte": "^2.23.0",
     "carbon-icons-svelte": "^11.4.0",
     "zod": "^3.21.4"
   }
