@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
-export type StaffDict = {
-  [code: string]: string;
+export type Staff = {
+  code: string;
+  name: string;
 };
 
 export const courseSchema = z.object({
@@ -19,11 +20,15 @@ export const EMPTY_COURSE: Course = {
   staffCode: '',
   sharesTimetableWith: null,
 };
-export type CourseDict = {
+export type CourseLookup = {
   [code: string]: Omit<Course, 'code'>;
 };
-export type CourseGroupDict = {
-  [group: string]: CourseDict;
+export type CourseGroup = {
+  name: string;
+  courses: Course[];
+};
+export type CourseGroupLookup = {
+  [group: string]: CourseLookup;
 };
 
 export const lessonSchema = z.object({
@@ -45,6 +50,6 @@ export const EMPTY_LESSON: Partial<Lesson> = {
   room: '',
   staffCode: '',
 };
-export type LessonsDict = {
+export type LessonsLookup = {
   [code: string]: Omit<Lesson, 'code'>[];
 };

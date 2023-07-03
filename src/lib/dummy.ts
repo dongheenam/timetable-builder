@@ -1,25 +1,20 @@
-import type { CourseGroupDict, LessonsDict, StaffDict } from './types.js';
+import type { CourseGroup, LessonsLookup, Staff } from './types.js';
 
-export const DUMMY_COURSE_GROUP: CourseGroupDict = {
-  'Year 7': {
-    SE0701: {
-      staffCode: 'QED',
-      sharesTimetableWith: null,
-    },
-    SE0702: {
-      staffCode: 'JXT',
-      sharesTimetableWith: null,
-    },
+export const DUMMY_COURSE_GROUPS: CourseGroup[] = [
+  {
+    name: 'Year 7',
+    courses: [
+      { code: 'SE0701', staffCode: 'QED', sharesTimetableWith: null },
+      { code: 'SE0702', staffCode: 'JXT', sharesTimetableWith: null },
+    ],
   },
-  'Year 8': {
-    SE0801: {
-      staffCode: 'ABC',
-      sharesTimetableWith: null,
-    },
+  {
+    name: 'Year 8',
+    courses: [{ code: 'SE0801', staffCode: 'ABC', sharesTimetableWith: null }],
   },
-};
+];
 
-export const DUMMY_LESSONS: LessonsDict = {
+export const DUMMY_LESSONS: LessonsLookup = {
   SE0701: [
     {
       day: 1,
@@ -51,8 +46,8 @@ export const DUMMY_LESSONS: LessonsDict = {
   SE0801: [],
 };
 
-export const DUMMY_STAFF: StaffDict = {
-  JXT: 'Jimmy Tan',
-  QED: 'Quinn Deyoung',
-  ABC: "Abraham D'Costa",
-};
+export const DUMMY_STAFFS: Staff[] = [
+  { code: 'JXT', name: 'Jimmy Tan' },
+  { code: 'QED', name: 'Quinn Deyoung' },
+  { code: 'ABC', name: "Abraham D'Costa" },
+];

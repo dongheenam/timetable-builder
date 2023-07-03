@@ -1,44 +1,48 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 
-import { DUMMY_COURSE_GROUP, DUMMY_LESSONS, DUMMY_STAFF } from '$lib/dummy.js';
-import type { LessonsDict, CourseGroupDict, StaffDict } from '$lib/types.js';
+import {
+  DUMMY_COURSE_GROUPS,
+  DUMMY_LESSONS,
+  DUMMY_STAFFS,
+} from '$lib/dummy.js';
+import type { LessonsLookup, CourseGroup, Staff } from '$lib/types.js';
 // import persist from './persist.js';
 
 /** course information by course group */
-export const courseGroups = writable<CourseGroupDict>(DUMMY_COURSE_GROUP);
+export const courseGroups = writable<CourseGroup[]>(DUMMY_COURSE_GROUPS);
+export const groupNames = derived(courseGroups, ($courseGroups) =>
+  $courseGroups.map((group) => group.name)
+);
 
 // extract the list of staff codes from classes
-const getStaffCodes = ($courseGroups: CourseGroupDict) => {
+const getStaffCodes = ($courseGroups: CourseGroup[]) => {
   const staffs = new Set<string>();
-  for (const courses of Object.values($courseGroups)) {
-    Object.values(courses).forEach((item) => staffs.add(item.staffCode));
+  for (const { courses } of $courseGroups) {
+    courses.forEach((item) => staffs.add(item.staffCode));
   }
   return [...staffs];
 };
 
-/** staff name lookup */
-export const staffCodes = writable<StaffDict>(DUMMY_STAFF);
+/** staff names */
+export const staffs = writable<Staff[]>(DUMMY_STAFFS);
 courseGroups.subscribe(($courseGroups) => {
   const newCodes = getStaffCodes($courseGroups);
 
-  staffCodes.update((prev) => {
+  staffs.update((prev) => {
     const currentCodes = Object.keys(prev);
     // add new staff codes
     for (const code of newCodes) {
       if (currentCodes.includes(code)) continue;
-      prev[code] = '';
+      prev = [...prev, { code, name: '' }];
     }
     // remove old staff codes
-    for (const code in prev) {
-      if (newCodes.includes(code)) continue;
-      delete prev[code];
-    }
+    prev = prev.filter((staff) => newCodes.includes(staff.code));
     return prev;
   });
 });
 
 /** timetable information */
-export const lessons = writable<LessonsDict>(DUMMY_LESSONS);
+export const lessons = writable<LessonsLookup>(DUMMY_LESSONS);
 
 /** timetable view settings */
 export const settings = writable({
