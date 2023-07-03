@@ -1,7 +1,7 @@
 {
   "name": "timetable-builder",
   "private": true,
-  "version": "2.0",
+  "version": "2.0-beta",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
@@ -29,6 +29,7 @@
     "vite": "^4.3.6"
   },
   "dependencies": {
-    "carbon-icons-svelte": "^11.4.0"
+    "carbon-icons-svelte": "^11.4.0",
+    "zod": "^3.21.4"
   }
 }
