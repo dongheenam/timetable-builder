@@ -14,6 +14,9 @@
 </ButtonBase>
 
 <style>
+  span {
+    display: flex;
+  }
   span :global(svg) {
     display: inline;
   }

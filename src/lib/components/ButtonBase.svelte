@@ -1,6 +1,7 @@
 <script lang="ts">
   export let color: 'gray' | 'primary' | 'green' | 'yellow' | 'red' = 'gray';
   export let variant: 'default' | 'outline' | 'subtle' | 'filled' = 'default';
+  export let label: string | undefined = undefined;
 
   let vars: { [key: string]: string | null };
   $: vars = {
@@ -48,6 +49,7 @@
   style:--btn--hover-bg={vars.bgHover}
   style:--btn--active-bg={vars.bgActive}
   on:click
+  title={label}
   {...$$restProps}
 >
   <slot />
