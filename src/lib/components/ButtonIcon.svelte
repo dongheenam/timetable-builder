@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { ComponentProps } from 'svelte';
+  import type { HTMLButtonAttributes } from 'svelte/elements';
   import ButtonBase from './ButtonBase.svelte';
-
-  type $$Props = ComponentProps<ButtonBase> & {
-    label: string;
-  };
+  type $$Props = HTMLButtonAttributes &
+    ComponentProps<ButtonBase> & {
+      label: string;
+    };
   export let label: string;
 </script>
 

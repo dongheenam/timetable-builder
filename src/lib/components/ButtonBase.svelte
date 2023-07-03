@@ -59,14 +59,15 @@
     background-color: var(--btn-bg, var(--bg));
     border: 1px solid var(--btn-bd, transparent);
     border-radius: var(--border-radius-sm);
-
+  }
+  button:enabled {
     cursor: pointer;
   }
-  button:hover {
+  button:enabled:hover {
     color: var(--btn--hover-color, var(--gray12));
     background-color: var(--btn--hover-bg, var(--gray4));
   }
-  button:active {
+  button:enabled:active {
     background-color: var(--btn--active-bg, var(--gray5));
   }
 </style>

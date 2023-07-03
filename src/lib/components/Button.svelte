@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { ComponentProps } from 'svelte';
+  import type { HTMLButtonAttributes } from 'svelte/elements';
   import ButtonBase from './ButtonBase.svelte';
 
-  type $$Props = ComponentProps<ButtonBase>;
+  type $$Props = HTMLButtonAttributes & ComponentProps<ButtonBase>;
 </script>
 
 <ButtonBase {...$$restProps}>

@@ -20,10 +20,15 @@
 <div class="card" data-expanded={expanded} data-expandable={toggleable}>
   <div class="title-block">
     <svelte:element this={titleTag}>{title}</svelte:element>
-    <ButtonIcon label="toggle the card" on:click={handleToggle}
-      >>
-      <IconChevronDown />
-    </ButtonIcon>
+    {#if toggleable}
+      <ButtonIcon
+        label="toggle the card"
+        on:click={handleToggle}
+        disabled={!toggleable}
+      >
+        <IconChevronDown />
+      </ButtonIcon>
+    {/if}
   </div>
   <div class="content-block">
     <slot />
