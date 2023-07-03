@@ -1,8 +1,9 @@
 # Local variables
-.env
+.env*
 
 # Output files
 scraper/out/*
+.next/*
 
 # Logs
 logs

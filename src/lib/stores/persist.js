@@ -42,8 +42,9 @@ const persist = (key, store) => {
       toStorage(key, value);
     },
     update: (updater) => {
-      store.update(updater);
-      toStorage(key, get(store));
+      const updated = updater(get(store));
+      store.set(updated);
+      toStorage(key, updated);
     },
   };
 };
