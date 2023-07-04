@@ -9,7 +9,7 @@
   export let label: string;
 </script>
 
-<ButtonBase {label} {...$$restProps}>
+<ButtonBase on:click {label} {...$$restProps}>
   <span><slot /></span>
 </ButtonBase>
 

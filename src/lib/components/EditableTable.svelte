@@ -48,9 +48,6 @@
                 type="text"
                 bind:value={item[col.key]}
                 placeholder={col.placeholder}
-                size={String(item[col.key]).length ||
-                  col.placeholder?.length ||
-                  1}
               />
             {:else}
               {item[col.key]}
@@ -58,18 +55,28 @@
           </td>
         {/each}
         <td>
-          {#if selectable}
-            <ButtonIcon label="select item" on:click={() => selectRow(index)}>
-              <IconEdit />
+          <div class="btn-block">
+            {#if selectable}
+              <ButtonIcon
+                label="select item"
+                on:click={() => selectRow(index)}
+                tabindex={-1}
+              >
+                <IconEdit />
+              </ButtonIcon>
+            {/if}
+            <ButtonIcon
+              label="remove item"
+              on:click={() => removeRow(index)}
+              tabindex={-1}
+            >
+              <IconX />
             </ButtonIcon>
-          {/if}
-          <ButtonIcon label="remove item" on:click={() => removeRow(index)}>
-            <IconX />
-          </ButtonIcon>
+          </div>
         </td>
       </tr>
     {/each}
-    <tr>
+    <tr class="row-new">
       {#each columns as col}
         <td>
           {#if col.editable}
@@ -77,9 +84,6 @@
               type="text"
               bind:value={newRow[col.key]}
               placeholder={col.placeholder}
-              size={String(newRow[col.key]).length ||
-                col.placeholder?.length ||
-                1}
             />
           {:else}
             {newRow[col.key]}
@@ -87,9 +91,15 @@
         </td>
       {/each}
       <td>
-        <ButtonIcon label="add item" on:click={() => addRow(newRow)}>
-          <IconPlus />
-        </ButtonIcon>
+        <div class="btn-block">
+          <ButtonIcon
+            label="add item"
+            on:click={() => addRow(newRow)}
+            tabindex={-1}
+          >
+            <IconPlus />
+          </ButtonIcon>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -97,11 +107,26 @@
 
 <style>
   table {
+    table-layout: fixed;
     border-collapse: collapse;
   }
+  th,
+  td {
+    border: 1px solid var(--gray8);
+  }
   input {
-    margin-inline: 3px;
+    margin-inline: 2px;
+    width: calc(100% - 4px);
     border: none;
     background: transparent;
+  }
+  .btn-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 2px;
+    margin: 2px;
   }
 </style>

@@ -6,7 +6,7 @@
   type $$Props = HTMLButtonAttributes & ComponentProps<ButtonBase>;
 </script>
 
-<ButtonBase {...$$restProps}>
+<ButtonBase on:click {...$$restProps}>
   <span><slot /></span>
 </ButtonBase>
 
