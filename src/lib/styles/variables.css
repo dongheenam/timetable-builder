@@ -1,5 +1,6 @@
 :root {
   /* LENGTHS */
+  --gap-xs: 0.25rem;
   --gap-sm: 0.5rem;
   --gap-md: 1rem;
   --gap-lg: 2rem;

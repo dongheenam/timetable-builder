@@ -1,4 +1,4 @@
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 
 import {
   DUMMY_COURSE_GROUPS,
@@ -6,6 +6,7 @@ import {
   DUMMY_STAFFS,
 } from '$lib/dummy.js';
 import type { LessonsLookup, CourseGroup, Staff } from '$lib/types.js';
+import slice from './slice';
 // import persist from './persist.js';
 
 /** course information by course group */
@@ -42,7 +43,17 @@ courseGroups.subscribe(($courseGroups) => {
 });
 
 /** timetable information */
-export const lessons = writable<LessonsLookup>(DUMMY_LESSONS);
+export const lessonsLookup = writable<LessonsLookup>(DUMMY_LESSONS);
+export const getLessons = (classCode: string) => {
+  if (!classCode) return;
+  if (!(classCode in get(lessonsLookup))) {
+    lessonsLookup.update((prev) => ({
+      ...prev,
+      [classCode]: [],
+    }));
+  }
+  return slice(lessonsLookup, classCode);
+};
 
 /** timetable view settings */
 export const settings = writable({

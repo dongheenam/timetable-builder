@@ -30,7 +30,7 @@ const toStorage = <T>(key: string, value: T) => {
 /**
  * wraps a writable object to make it persistable using localStorage
  */
-const persist = <T>(key: string, store: Writable<T>): Writable<T> => {
+const persist = <T>(store: Writable<T>, key: string): Writable<T> => {
   if (!isBrowser) return store;
 
   const loaded = fromStorage<T>(key);
