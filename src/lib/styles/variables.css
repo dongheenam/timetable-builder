@@ -1,4 +1,11 @@
 :root {
+  /* FONT SIZES */
+  --size-xs: 0.75rem;
+  --size-sm: 0.875rem;
+  --size-md: 1rem;
+  --size-lg: 1.125rem;
+  --size-xl: 1.25rem;
+
   /* LENGTHS */
   --gap-xs: 0.25rem;
   --gap-sm: 0.5rem;

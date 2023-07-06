@@ -5,7 +5,7 @@ import {
   DUMMY_LESSONS,
   DUMMY_STAFFS,
 } from '$lib/dummy.js';
-import type { LessonsLookup, CourseGroup, Staff } from '$lib/types.js';
+import type { LessonsLookup, CourseGroup, Staff, Lesson } from '$lib/types.js';
 import slice from './slice';
 // import persist from './persist.js';
 
@@ -42,7 +42,7 @@ courseGroups.subscribe(($courseGroups) => {
   });
 });
 
-/** timetable information */
+/** lesson information */
 export const lessonsLookup = writable<LessonsLookup>(DUMMY_LESSONS);
 export const getLessons = (classCode: string) => {
   if (!classCode) return;
@@ -58,5 +58,73 @@ export const getLessons = (classCode: string) => {
 /** timetable view settings */
 export const settings = writable({
   isMonospace: false,
-  baseFont_pt: 10.5,
+  fontSize_pt: 10.5,
 });
+
+/** timetable data */
+const getLessonsInGroup = (
+  courseGroup: CourseGroup,
+  $lessonsLookup: LessonsLookup
+) => {
+  const lessons = [];
+  for (const course of courseGroup.courses) {
+    if (!(course.code in $lessonsLookup)) continue;
+    const lessonsSlice = $lessonsLookup[course.code].map((lesson) => ({
+      code: course.code,
+      ...lesson,
+    }));
+    lessons.push(...lessonsSlice);
+  }
+  return lessons;
+};
+
+export type TimetableEntry = {
+  name: string;
+  lessonsWithCode: (Lesson & { code: string })[];
+}[];
+const DAYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+const PERIODS = ['1', '2', '3', '4', '5'];
+const groupLessonsByPeriod = (
+  lessonGroups: {
+    name: string;
+    lessonsWithCode: (Lesson & { code: string })[];
+  }[]
+): TimetableEntry[][] => {
+  const grid = new Array(DAYS.length);
+  for (let iDay = 0; iDay < DAYS.length; iDay++) {
+    const day = DAYS[iDay];
+    grid[iDay] = new Array(PERIODS.length);
+
+    for (let iPeriod = 0; iPeriod < PERIODS.length; iPeriod++) {
+      const period = PERIODS[iPeriod];
+
+      const lessonGroupsNow = lessonGroups.flatMap((group) => {
+        const lessonsNow = group.lessonsWithCode.filter(
+          (lesson) => lesson.day === day && lesson.period === period
+        );
+
+        // remove the group if no lessons are in this period
+        if (lessonsNow.length === 0) return [];
+
+        return [{ name: group.name, lessonsWithCode: lessonsNow }];
+      });
+
+      grid[iDay][iPeriod] = lessonGroupsNow;
+    }
+  }
+
+  return grid;
+};
+
+export const timetableByPeriod = derived(
+  [courseGroups, lessonsLookup],
+  ([$courseGroups, $lessonsLookup]) => {
+    const lessonGroups = $courseGroups.map((group) => ({
+      name: group.name,
+      lessonsWithCode: getLessonsInGroup(group, $lessonsLookup),
+    }));
+    console.log(lessonGroups);
+
+    return groupLessonsByPeriod(lessonGroups);
+  }
+);

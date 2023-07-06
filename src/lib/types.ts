@@ -1,20 +1,13 @@
-import { z } from 'zod';
-
 export type Staff = {
   code: string;
   name: string;
 };
 
-export const courseSchema = z.object({
-  code: z
-    .string()
-    .trim()
-    .toUpperCase()
-    .min(1, { message: 'Course code is required' }),
-  staffCode: z.string().trim().toUpperCase(),
-  sharesTimetableWith: z.string().trim().toUpperCase().nullable(),
-});
-export type Course = z.infer<typeof courseSchema>;
+export type Course = {
+  code: string;
+  staffCode: string;
+  sharesTimetableWith: string | null;
+};
 export const EMPTY_COURSE: Course = {
   code: '',
   staffCode: '',
@@ -31,22 +24,17 @@ export type CourseGroupLookup = {
   [group: string]: CourseLookup;
 };
 
-export const lessonSchema = z.object({
-  code: z
-    .string()
-    .trim()
-    .toUpperCase()
-    .min(1, { message: 'Course code is required' }),
-  day: z.coerce.number(),
-  period: z.coerce.number(),
-  room: z.string().trim().toUpperCase(),
-  staffCode: z.string().trim().toUpperCase(),
-});
-export type Lesson = z.infer<typeof lessonSchema>;
-export const EMPTY_LESSON: Partial<Lesson> = {
+export type Lesson = {
+  code: string;
+  day: string;
+  period: string;
+  room: string;
+  staffCode: string;
+};
+export const EMPTY_LESSON: Lesson = {
   code: '',
-  day: undefined,
-  period: undefined,
+  day: '',
+  period: '',
   room: '',
   staffCode: '',
 };

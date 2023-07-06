@@ -1,0 +1,39 @@
+/* hide this div during printing */
+@media screen {
+  #print-area {
+    display: none;
+  }
+}
+
+/* page setup */
+@page {
+  margin: 0.6cm;
+}
+@media print {
+  #app {
+    display: none;
+  }
+  table {
+    font-size: var(--print-font-size, 14px);
+  }
+  table th,
+  table td {
+    border: 0.75px solid black;
+  }
+  table .lesson-title {
+    font-size: 1.1em;
+  }
+  table .lesson {
+    font-size: 1em;
+    letter-spacing: -0.05ex;
+  }
+  table .lesson.monospace {
+    font-family: Menlo, monospace;
+  }
+  table .title-row:not(:first-of-type) {
+    page-break-before: always;
+  }
+  table tr {
+    page-break-inside: avoid;
+  }
+}

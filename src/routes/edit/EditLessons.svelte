@@ -1,7 +1,7 @@
 <script lang="ts">
   import { derived } from 'svelte/store';
   import EditableTable from '$lib/components/EditableTable.svelte';
-  import type { Course } from '$lib/types';
+  import { EMPTY_LESSON, type Course } from '$lib/types';
   import { getLessons, lessonsLookup } from '$lib/stores';
 
   export let selectedCourse: Course;
@@ -22,10 +22,8 @@
   ];
 
   const addLesson = () => ({
-    day: 0,
-    period: 0,
+    ...EMPTY_LESSON,
     staffCode: selectedCourse.staffCode,
-    room: '',
   });
 
   /** Option to copy timetable from another course */

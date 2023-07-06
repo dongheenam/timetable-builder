@@ -17,28 +17,28 @@ export const DUMMY_COURSE_GROUPS: CourseGroup[] = [
 export const DUMMY_LESSONS: LessonsLookup = {
   SE0701: [
     {
-      day: 1,
-      period: 1,
+      day: '1',
+      period: '1',
       staffCode: 'QED',
       room: 'SE101',
     },
     {
-      day: 2,
-      period: 5,
+      day: '2',
+      period: '5',
       staffCode: 'QED',
       room: 'SE101',
     },
     {
-      day: 3,
-      period: 2,
+      day: '3',
+      period: '2',
       staffCode: 'QED',
       room: 'SE101',
     },
   ],
   SE0702: [
     {
-      day: 1,
-      period: 1,
+      day: '1',
+      period: '1',
       staffCode: 'JXT',
       room: 'SN201',
     },

@@ -30,8 +30,8 @@
       case 'filled':
         vars = {
           ...vars,
-          text: `var(--bg)`,
-          textHover: `var(--bg)`,
+          text: `var(--white)`,
+          textHover: `var(--white)`,
           bg: `var(--${color}9)`,
           bgHover: `var(--${color}10)`,
           bgActive: `var(--${color}11)`,
@@ -58,7 +58,7 @@
 <style>
   button {
     color: var(--btn-color, var(--gray11));
-    background-color: var(--btn-bg, var(--bg));
+    background-color: var(--btn-bg, var(--white));
     border: 1px solid var(--btn-bd, transparent);
     border-radius: var(--border-radius-sm);
   }

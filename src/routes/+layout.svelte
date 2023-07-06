@@ -10,7 +10,7 @@
   ];
 </script>
 
-<div class="app">
+<div id="app">
   <Header {navItems} />
   <main>
     <slot />
@@ -18,7 +18,7 @@
 </div>
 
 <style>
-  .app {
+  #app {
     background-color: var(--gray2);
     min-height: 100vh;
     padding-bottom: 5rem;
