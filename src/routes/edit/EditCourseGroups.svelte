@@ -1,6 +1,7 @@
 <script lang="ts">
   import { courseGroups } from '$lib/stores';
   import type { Course } from '$lib/types';
+  import { IconEdit } from '@tabler/icons-svelte';
 
   import SelectGroup from './SelectGroup.svelte';
   import EditCourseGroup from './EditCourseGroup.svelte';
@@ -22,7 +23,10 @@
   {:else}
     <div>
       <h3>Class not selected!</h3>
-      <p>Use the edit button in the class table to view and edit classes.</p>
+      <p>
+        Use the edit button <IconEdit size={18} stroke={1} /> in the class table
+        to view and edit classes.
+      </p>
     </div>
   {/if}
   {JSON.stringify($courseGroups)}
@@ -33,5 +37,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap-lg);
+  }
+  p :global(svg) {
+    display: inline;
+    vertical-align: middle;
   }
 </style>

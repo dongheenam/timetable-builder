@@ -28,7 +28,9 @@
           columns={COLUMNS}
           selectable
           bind:selected={selectedCourse}
+          addable
           addItem={() => ({ code: '', staffCode: '' })}
+          removable
         />
       {/key}
     </div>
@@ -70,5 +72,9 @@
   /* Staff column */
   .table-wrapper :global(td:nth-child(2)) {
     max-width: 8ch;
+  }
+  .table-wrapper :global(tr[data-selected='true']) {
+    font-weight: bold;
+    background-color: var(--primary4);
   }
 </style>
