@@ -52,7 +52,9 @@
         <EditableTable
           bind:items={$lessons}
           columns={COLUMNS}
+          addable
           addItem={addLesson}
+          removable
         />
       {/key}
     </div>

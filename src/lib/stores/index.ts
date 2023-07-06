@@ -30,7 +30,7 @@ courseGroups.subscribe(($courseGroups) => {
   const newCodes = getStaffCodes($courseGroups);
 
   staffs.update((prev) => {
-    const currentCodes = Object.keys(prev);
+    const currentCodes = prev.map((staff) => staff.code);
     // add new staff codes
     for (const code of newCodes) {
       if (currentCodes.includes(code)) continue;
