@@ -1,3 +1,6 @@
+export const APP_NAME = 'timetable-builder';
+export const APP_VERSION = '2.0-beta';
+
 export type Staff = {
   code: string;
   name: string;

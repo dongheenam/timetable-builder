@@ -1,7 +1,6 @@
 import { get, type Writable } from 'svelte/store';
+import { APP_VERSION, APP_NAME } from '$lib/types.js';
 
-const APP_NAME = process.env.NPM_PACKAGE_NAME;
-const APP_VERSION = process.env.NPM_PACKAGE_VERSION;
 const isBrowser = typeof Storage !== 'undefined';
 
 const generateKey = (key: string) => `${APP_NAME}-${APP_VERSION}-${key}`;

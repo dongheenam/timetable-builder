@@ -1,4 +1,4 @@
-import { writable, derived, get } from 'svelte/store';
+import { writable, derived, get, type Readable } from 'svelte/store';
 
 import {
   DUMMY_COURSE_GROUPS,
@@ -7,7 +7,18 @@ import {
 } from '$lib/dummy.js';
 import type { LessonsLookup, CourseGroup, Staff, Lesson } from '$lib/types.js';
 import slice from './slice';
-// import persist from './persist.js';
+import persist from './persist.js';
+
+// keys used for storing data in localStorage
+export const STORAGE_KEYS = {
+  courseGroups: 'course-groups',
+  staffs: 'staffs',
+  lessonsLookup: 'lessons-lookup',
+  settings: 'settings',
+};
+
+// get the type of a store
+export type StoredIn<T> = T extends Readable<infer U> ? U : never;
 
 /** course information by course group */
 export const courseGroups = writable<CourseGroup[]>(DUMMY_COURSE_GROUPS);
@@ -123,7 +134,6 @@ export const timetableByPeriod = derived(
       name: group.name,
       lessonsWithCode: getLessonsInGroup(group, $lessonsLookup),
     }));
-    console.log(lessonGroups);
 
     return groupLessonsByPeriod(lessonGroups);
   }
