@@ -3,15 +3,19 @@
 
   import EditCourseGroups from './EditCourseGroups.svelte';
   import EditStaffs from './EditStaffs.svelte';
+  import SaveLoad from './SaveLoad.svelte';
 </script>
 
 <div class="root">
   <h1>Edit</h1>
   <div class="card-group">
-    <Card title="Classes" titleTag="h2">
+    <Card title="Save/Load">
+      <SaveLoad />
+    </Card>
+    <Card title="Classes">
       <EditCourseGroups />
     </Card>
-    <Card title="Staff" titleTag="h2">
+    <Card title="Staff">
       <EditStaffs />
     </Card>
   </div>
@@ -19,6 +23,6 @@
 
 <style>
   .card-group > :global(*) {
-    margin-bottom: var(--gap-lg);
+    margin: var(--gap-lg) 0;
   }
 </style>

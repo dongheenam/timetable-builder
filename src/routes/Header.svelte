@@ -1,10 +1,14 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { APP_VERSION } from '$lib/types';
   export let navItems: { href: string; label: string }[] = [];
 </script>
 
 <header>
-  <div class="title">Timetable builder</div>
+  <div class="title-block">
+    <span class="title">Timetable builder</span>
+    <span>v{APP_VERSION}</span>
+  </div>
   <ul class="nav-list">
     {#each navItems as { href, label }}
       <li>
