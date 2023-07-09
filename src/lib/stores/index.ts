@@ -21,7 +21,10 @@ export const STORAGE_KEYS = {
 export type StoredIn<T> = T extends Readable<infer U> ? U : never;
 
 /** course information by course group */
-export const courseGroups = writable<CourseGroup[]>(DUMMY_COURSE_GROUPS);
+export const courseGroups = persist(
+  writable<CourseGroup[]>(DUMMY_COURSE_GROUPS),
+  STORAGE_KEYS.courseGroups
+);
 export const groupNames = derived(courseGroups, ($courseGroups) =>
   $courseGroups.map((group) => group.name)
 );
@@ -36,7 +39,10 @@ const getStaffCodes = ($courseGroups: CourseGroup[]) => {
 };
 
 /** staff names */
-export const staffs = writable<Staff[]>(DUMMY_STAFFS);
+export const staffs = persist(
+  writable<Staff[]>(DUMMY_STAFFS),
+  STORAGE_KEYS.staffs
+);
 courseGroups.subscribe(($courseGroups) => {
   const newCodes = getStaffCodes($courseGroups);
 
@@ -54,7 +60,10 @@ courseGroups.subscribe(($courseGroups) => {
 });
 
 /** lesson information */
-export const lessonsLookup = writable<LessonsLookup>(DUMMY_LESSONS);
+export const lessonsLookup = persist(
+  writable<LessonsLookup>(DUMMY_LESSONS),
+  STORAGE_KEYS.lessonsLookup
+);
 export const getLessons = (classCode: string) => {
   if (!classCode) return;
   if (!(classCode in get(lessonsLookup))) {
@@ -67,10 +76,13 @@ export const getLessons = (classCode: string) => {
 };
 
 /** timetable view settings */
-export const settings = writable({
-  isMonospace: false,
-  fontSize_pt: 10.5,
-});
+export const settings = persist(
+  writable({
+    isMonospace: false,
+    fontSize_pt: 10.5,
+  }),
+  STORAGE_KEYS.settings
+);
 
 /** timetable data */
 const getLessonsInGroup = (
