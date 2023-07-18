@@ -1,6 +1,6 @@
 import { 
-  URL_CLASS, 
-  STAFF_CODE_INPUT_ID, 
+  URL_CLASS,
+  STAFF_CODE_INPUT_SELECTOR,
   LEARNING_AREA_INPUT_SELECTOR,
   SEARCH_BOX_SELECTOR, 
   SEARCH_BUTTON_SELECTOR,
@@ -16,11 +16,12 @@ const readClasses = async (page, query={}) => {
   // search the classes
   await page.goto(URL_CLASS);
   await page.waitForSelector(SEARCH_BOX_SELECTOR);
-  await page.evaluate((inputId, code) => {
-    return (aspxGetControlCollection()
-      .Get(inputId))
-      .SetText(code);
-  }, STAFF_CODE_INPUT_ID, staff);
+
+  // staff code input
+  const staffInput = await page.waitForSelector(STAFF_CODE_INPUT_SELECTOR);
+  await staffInput.value = staff;
+
+  // learning area input
   await page.select(LEARNING_AREA_INPUT_SELECTOR, learningArea);
   await page.click(SEARCH_BUTTON_SELECTOR);
 

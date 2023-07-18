@@ -29,13 +29,12 @@ export const IB_SL_PATTERN = /SI[BCP]S1[12]0\d/;
 export const CLASS_TITLE_SELECTOR = "#mainCDARoundPanel_HTC_DivDetails_0";
 
 export const SEARCH_BOX_SELECTOR = "#popupSearchCritera_PW-1";
-export const STAFF_CODE_INPUT_RAW_ID = "uctrlClassSearchStaffSearchComboBox_Raw";
-export const STAFF_CODE_INPUT_ID = "uctrlClassSearchStaffSearchComboBox";
+export const STAFF_CODE_INPUT_SELECTOR = "#uctrlClassSearchStaffSearchComboBox_I";
 export const LEARNING_AREA_INPUT_SELECTOR = "#cbLArea";
 export const SEARCH_BUTTON_SELECTOR = "#searchButton";
 
 export const SEARCH_RESULTS_TABLE_SELECTOR = "#gridviewSearch_DXMainTable";
 export const SEARCH_RESULTS_ROW_SELECTOR = ".dxgvDataRow";
 
-export const TIMETABLE_OPEN_BUTTON_SELECTOR = "#ASPxNavBarRuntime_GHC4";
-export const TIMETABLE_TABLE_SELECTOR = "#ASPxNavBarRuntime_GCTC4_ctl01_4_gridviewTimetable_4_DXMainTable";
+export const TIMETABLE_OPEN_BUTTON_SELECTOR = "#ASPxNavBarRuntime_GHC5";
+export const TIMETABLE_TABLE_SELECTOR = "#ASPxNavBarRuntime_GCTC5_ctl01_5_gridviewTimetable_5_DXMainTable";
