@@ -59,13 +59,13 @@
     margin: var(--gap-md) 0;
   }
   .table-wrapper :global(th) {
-    background-color: var(--primary6);
+    background-color: var(--primary4);
   }
   .table-wrapper :global(tr) {
     background-color: var(--white);
   }
   .table-wrapper :global(tr:nth-child(even)) {
-    background-color: var(--primary2);
+    background-color: var(--primary3);
   }
   .table-wrapper :global(tr.row-new) {
     color: var(--gray8);

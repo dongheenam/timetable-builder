@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 
-import { URL, URL_WELCOME, GROUP_PATTERNS, IB_HL_PATTERN, IB_SL_PATTERN } from "./src/constants.js";
+import { URL, URL_WELCOME, GROUP_PATTERNS, IB_HL_PATTERN, IB_SL_PATTERN, STORAGE_KEYS, APP_VERSION} from "./src/constants.js";
 import readClasses from "./src/readClasses.js";
 import readRooms from "./src/readRooms.js";
 
@@ -44,7 +44,7 @@ const scrapeScience = async () => {
     const classesInGroup = classesUpdated.filter((cls) => codeRegex.test(cls.code));
     classesByGroup.push({ 
       name: groupName, 
-      classes: classesInGroup.map((cls) => ({ code: cls.code, staff: cls.staff })),
+      classes: classesInGroup.map((cls) => ({ code: cls.code, staffCode: cls.staffCode })),
     });
   }
 
@@ -53,8 +53,9 @@ const scrapeScience = async () => {
 
   // create a JSON file
   const data = {
-    "ttb-classGroups": classesByGroup, 
-    "ttb-timetables": rooms,
+    version: APP_VERSION,
+    [STORAGE_KEYS.courseGroups]: classesByGroup, 
+    [STORAGE_KEYS.lessonsLookup]: rooms,
   };
   await fs.writeFile("out/config.json", JSON.stringify(data, null, 2));
 
