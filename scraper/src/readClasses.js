@@ -19,7 +19,10 @@ const readClasses = async (page, query={}) => {
 
   // staff code input
   const staffInput = await page.waitForSelector(STAFF_CODE_INPUT_SELECTOR);
-  await staffInput.value = staff;
+  await staffInput.click();
+  await staffInput.press("Backspace");
+  await staffInput.type(staff);
+
 
   // learning area input
   await page.select(LEARNING_AREA_INPUT_SELECTOR, learningArea);
@@ -38,11 +41,11 @@ const readClasses = async (page, query={}) => {
         const cells = Array.from(row.querySelectorAll("td a"));
 
         const code = cells[0].innerHTML.substring(4);
-        const staff = cells[2].innerHTML.replace(/&nbsp;/g, "");
+        const staffCode = cells[2].innerHTML.replace(/&nbsp;/g, "");
         const href = cells[0].href;
         
-        if (staff.length > 0) {
-          classList.push({ code, staff, href });
+        if (staffCode.length > 0) {
+          classList.push({ code, staffCode, href });
         }
       }
 

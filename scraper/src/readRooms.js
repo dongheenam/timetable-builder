@@ -15,7 +15,9 @@ const readRooms = async (page, classes) => {
     // click the timetable button if it is not open already
     try {
       await page.click(TIMETABLE_OPEN_BUTTON_SELECTOR);
-    } catch (e) {}
+    } catch (e) {
+      // do nothing
+    }
 
     // read the timetable
     const timetable = await page.evaluate((tableSelector, rowSelector) => {
