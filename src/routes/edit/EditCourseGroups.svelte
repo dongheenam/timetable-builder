@@ -1,23 +1,48 @@
 <script lang="ts">
   import { courseGroups } from '$lib/stores';
-  import type { Course } from '$lib/types';
+  import type { Course, CourseGroup } from '$lib/types';
   import { IconEdit } from '@tabler/icons-svelte';
 
   import SelectGroup from './SelectGroup.svelte';
   import EditCourseGroup from './EditCourseGroup.svelte';
   import EditLessons from './EditLessons.svelte';
+  import CreateCourseGroup from './CreateCourseGroup.svelte';
 
   let selectedGroupIndex = '0';
   let selectedCourse: Course | undefined;
+  $: selectedGroup = $courseGroups[parseInt(selectedGroupIndex)];
   $: selectedGroupIndex, (selectedCourse = undefined);
+
+  let newCourseGroup: CourseGroup = {
+    name: '',
+    courses: [],
+  };
+  const createCourseGroup = () => {
+    if (!newCourseGroup.name) return;
+    if (!newCourseGroup.courses.length) return;
+
+    courseGroups.update((groups) => [...groups, newCourseGroup]);
+    newCourseGroup = { name: '', courses: [] };
+  };
+  const removeCourseGroup = (index: number) => () => {
+    courseGroups.update((groups) => {
+      groups.splice(index, 1);
+      return groups;
+    });
+  };
 </script>
 
 <div class="root">
   <SelectGroup bind:selected={selectedGroupIndex} />
-  <EditCourseGroup
-    bind:courseGroup={$courseGroups[parseInt(selectedGroupIndex)]}
-    bind:selectedCourse
-  />
+  {#if selectedGroup}
+    <EditCourseGroup
+      bind:courseGroup={selectedGroup}
+      bind:selectedCourse
+      removeCourseGroup={removeCourseGroup(parseInt(selectedGroupIndex))}
+    />
+  {:else}
+    <CreateCourseGroup bind:newCourseGroup {createCourseGroup} />
+  {/if}
   {#if selectedCourse}
     <EditLessons {selectedCourse} />
   {:else}
@@ -29,7 +54,6 @@
       </p>
     </div>
   {/if}
-  {JSON.stringify($courseGroups)}
 </div>
 
 <style>

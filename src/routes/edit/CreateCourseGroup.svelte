@@ -4,10 +4,12 @@
   import EditableTable from '$lib/components/EditableTable.svelte';
   import Button from '$lib/components/Button.svelte';
 
-  export let courseGroup: CourseGroup;
-  export let selectedCourse: Course | undefined;
+  export let newCourseGroup: CourseGroup = {
+    name: '',
+    courses: [],
+  };
 
-  export let removeCourseGroup: () => void;
+  export let createCourseGroup: () => void;
 
   // TODO: fix TypeScript error
   const COLUMNS: {
@@ -21,29 +23,23 @@
 </script>
 
 <div class="root">
-  <h3>Classes in {courseGroup.name}</h3>
+  <h3>Create new group</h3>
 
   <div class="table-wrapper">
-    {#key courseGroup.name}
-      <EditableTable
-        bind:items={courseGroup.courses}
-        columns={COLUMNS}
-        selectable
-        bind:selected={selectedCourse}
-        addable
-        addItem={() => ({ code: '', staffCode: '' })}
-        removable
-      />
-    {/key}
+    <EditableTable
+      bind:items={newCourseGroup.courses}
+      columns={COLUMNS}
+      addable
+      addItem={() => ({ code: '', staffCode: '' })}
+      removable
+    />
   </div>
-
   <label>
-    <span>Rename group:</span>
-    <input bind:value={courseGroup.name} class="input-name" />
+    <span>Name:</span>
+    <input bind:value={newCourseGroup.name} class="input-name" />
   </label>
-
-  <Button on:click={removeCourseGroup} color="red" variant="subtle"
-    >Remove group</Button
+  <Button on:click={createCourseGroup} color="primary" variant="subtle"
+    >Create group</Button
   >
 </div>
 

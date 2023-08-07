@@ -55,6 +55,9 @@ courseGroups.subscribe(($courseGroups) => {
     }
     // remove old staff codes
     prev = prev.filter((staff) => newCodes.includes(staff.code));
+
+    // sort
+    prev = prev.sort((a, b) => a.code.localeCompare(b.code))
     return prev;
   });
 });
