@@ -11,15 +11,16 @@ const readRooms = async (page, classes) => {
 
   for (const cls of classes) {
     await page.goto(cls.href, { waitUntil: "domcontentloaded" });
-
+    
     // click the timetable button if it is not open already
     try {
-      await page.click(TIMETABLE_OPEN_BUTTON_SELECTOR);
+        await page.click(TIMETABLE_OPEN_BUTTON_SELECTOR);
     } catch (e) {
-      // do nothing
+        // do nothing
     }
-
+    
     // read the timetable
+    await page.waitForSelector(TIMETABLE_TABLE_SELECTOR);
     const timetable = await page.evaluate((tableSelector, rowSelector) => {
       const rows = Array.from(document.querySelectorAll(
         `${tableSelector} ${rowSelector}`
@@ -33,15 +34,16 @@ const readRooms = async (page, classes) => {
         const day = cells[1].innerHTML;
         const period = cells[2].innerHTML === "6" ? "5" : cells[2].innerHTML;
         const room = cells[4].innerHTML;
+        const staffCode = cells[5].innerHTML;
         
-        timetableList.push({day, period, room});
+        timetableList.push({day, period, staffCode, room});
       }
 
       return timetableList;
     }, TIMETABLE_TABLE_SELECTOR, SEARCH_RESULTS_ROW_SELECTOR);
 
     // append the timetable to the results
-    console.log(`found timetable for ${cls.code}!`);
+    console.log(`found ${timetable.length} lessons for ${cls.code}!`);
     rooms[cls.code] = timetable;
   }
   

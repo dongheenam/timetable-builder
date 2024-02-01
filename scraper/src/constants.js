@@ -25,10 +25,10 @@ export const GROUP_PATTERNS = {
   "Year 10 Science": /SE10[01]\d/,
   "Year 10 AG": /SA100\d/,
   "Year 11 HSC": /S[BCP]110\d/,
-  "Year 11 IB": /SI[BCP]H110\d/,
+  "Year 11 IB": /SI[BCP]110\d/,
   "Year 11 AG": /SA110\d/,
   "Year 12 HSC": /S[BCP]120\d/,
-  "Year 12 IB": /SI[BCP]H120\d/,
+  "Year 12 IB": /SI[BCP]120\d/,
   "Year 12 AG": /SA120\d/,
 };
 // regex patterns to match the IB classes

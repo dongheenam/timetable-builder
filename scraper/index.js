@@ -44,7 +44,7 @@ const scrapeScience = async () => {
     const classesInGroup = classesUpdated.filter((cls) => codeRegex.test(cls.code));
     classesByGroup.push({ 
       name: groupName, 
-      classes: classesInGroup.map((cls) => ({ code: cls.code, staffCode: cls.staffCode })),
+      courses: classesInGroup.map((cls) => ({ code: cls.code, staffCode: cls.staffCode })),
     });
   }
 

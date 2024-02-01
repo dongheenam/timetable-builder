@@ -53,6 +53,7 @@
           const value = data[key] as StoredIn<typeof store>;
           //@ts-expect-error: we know the type is correct, unless we change the store structure in the future.
           store.set(value);
+          console.log('Loaded', key);
         }
       }
     } catch (error) {
@@ -63,6 +64,7 @@
     isReady = false;
     files = undefined;
     data = {};
+    location.reload();
     status = 'Load success!';
   };
 </script>
