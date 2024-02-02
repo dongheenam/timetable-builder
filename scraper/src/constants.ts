@@ -2,11 +2,13 @@
 export const APP_NAME = 'timetable-builder';
 export const APP_VERSION = '2.0-beta';
 export const STORAGE_KEYS = {
-    courseGroups: 'course-groups',
-    staffs: 'staffs',
-    lessonsLookup: 'lessons-lookup',
-    settings: 'settings',
-  };
+  version: 'version',
+  time: 'time',
+  courseGroups: 'course-groups',
+  staffs: 'staffs',
+  lessonsLookup: 'lessons-lookup',
+  settings: 'settings',
+};
 
 // environment variables
 import * as dotenv from "dotenv";

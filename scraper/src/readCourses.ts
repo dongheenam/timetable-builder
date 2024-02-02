@@ -1,3 +1,4 @@
+import { Page } from "puppeteer";
 import { 
   URL_CLASS,
   STAFF_CODE_INPUT_SELECTOR,
@@ -6,12 +7,22 @@ import {
   SEARCH_BUTTON_SELECTOR,
   SEARCH_RESULTS_TABLE_SELECTOR,
   SEARCH_RESULTS_ROW_SELECTOR
-} from "./constants.js";
+} from "./constants";
 
-const readClasses = async (page, query={}) => {
+export type Query = {
+  staff?: string,
+  learningArea?: string,
+};
+export type CourseData = {
+  code: string,
+  staffCode: string,
+  href: string,
+};
+
+const readCourses = async (page: Page, query: Query = {}) => {
   // parse query
-  const staff = "staff" in query ? query.staff : "";
-  const learningArea = "learningArea" in query ? query.learningArea : "";
+  const staff = query.staff || "";
+  const learningArea = query.learningArea || "";
 
   // search the classes
   await page.goto(URL_CLASS);
@@ -19,7 +30,10 @@ const readClasses = async (page, query={}) => {
 
   // staff code input
   const staffInput = await page.waitForSelector(STAFF_CODE_INPUT_SELECTOR);
-  await staffInput.click();
+  if (!staffInput) {
+    throw new Error("staff code input not found!");
+  }
+  await staffInput.click({ clickCount: 2 });
   await staffInput.press("Backspace");
   await staffInput.type(staff);
 
@@ -30,28 +44,28 @@ const readClasses = async (page, query={}) => {
 
   // parse the result table
   await page.waitForSelector(SEARCH_RESULTS_TABLE_SELECTOR);
-  const classes = await page.evaluate(
+  const courses = await page.evaluate(
     (tableSelector, rowSelector) => {
       const rows = Array.from(document.querySelectorAll(
         `${tableSelector} ${rowSelector}`
       ));
       
-      const classList = [];
+      const courseDatas: CourseData[] = [];
       for (const row of rows) {
-        const cells = Array.from(row.querySelectorAll("td a"));
+        const cells: HTMLAnchorElement[] = Array.from(row.querySelectorAll("td a"));
 
-        const code = cells[0].innerHTML.substring(4);
+        const code = cells[0].innerHTML.substring(4); // remove SEN/ prefix
         const staffCode = cells[2].innerHTML.replace(/&nbsp;/g, "");
         const href = cells[0].href;
         
         if (staffCode.length > 0) {
-          classList.push({ code, staffCode, href });
+          courseDatas.push({ code, staffCode, href });
         }
       }
 
-      return classList;
+      return courseDatas;
   }, SEARCH_RESULTS_TABLE_SELECTOR, SEARCH_RESULTS_ROW_SELECTOR);
-  console.log(`found ${classes.length} classes matching the query ${JSON.stringify(query)}!`);
-  return classes;
+  console.log(`found ${courses.length} classes matching the query ${JSON.stringify(query)}!`);
+  return courses;
 };
-export default readClasses;
+export default readCourses;

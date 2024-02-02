@@ -6,8 +6,12 @@
   "main": "index.js",
   "author": "Donghee Nam",
   "license": "ISC",
+  "scripts": {
+    "start": "pnpm exec ts-node index.ts"
+  },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "puppeteer": "^19.6.0"
+    "puppeteer": "^19.6.0",
+    "typescript": "^5.3.3"
   }
 }
