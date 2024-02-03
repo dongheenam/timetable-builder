@@ -11,8 +11,8 @@
       {#each group.lessonsWithCode as lesson}
         <span class="lesson" class:monospace={isMonospace}>
           {lesson.code}
-          {lesson.room}
-          {lesson.staffCode}
+          {lesson.room || '(null)'}
+          {lesson.staffCode || '(null)'}
         </span>
       {/each}
     </div>
