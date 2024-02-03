@@ -7,7 +7,7 @@ import {
   SEARCH_BUTTON_SELECTOR,
   SEARCH_RESULTS_TABLE_SELECTOR,
   SEARCH_RESULTS_ROW_SELECTOR
-} from "./constants";
+} from "./constants.js";
 
 export type Query = {
   staff?: string,

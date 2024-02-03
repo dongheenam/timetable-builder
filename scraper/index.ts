@@ -1,9 +1,9 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 
-import { URL, URL_WELCOME, GROUP_PATTERNS, IB_HL_PATTERN, IB_SL_PATTERN, STORAGE_KEYS, APP_VERSION } from "./src/constants";
-import readCourses, { CourseData } from "./src/readCourses";
-import readLessons from "./src/readRooms";
+import { URL, URL_WELCOME, GROUP_PATTERNS, IB_HL_PATTERN, IB_SL_PATTERN, STORAGE_KEYS, APP_VERSION } from "./src/constants.js";
+import readCourses, { CourseData } from "./src/readCourses.js";
+import readLessons from "./src/readRooms.js";
 
 /* type definitions from the Svelte app
  * TODO: import these instead (monorepo?)

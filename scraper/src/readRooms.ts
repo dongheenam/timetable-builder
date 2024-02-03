@@ -3,8 +3,8 @@ import {
   TIMETABLE_OPEN_BUTTON_SELECTOR, 
   TIMETABLE_TABLE_SELECTOR, 
   SEARCH_RESULTS_ROW_SELECTOR 
-} from "./constants";
-import type { CourseData } from "./readCourses";
+} from "./constants.js";
+import type { CourseData } from "./readCourses.js";
 
 type LessonData = {
   day: string,
