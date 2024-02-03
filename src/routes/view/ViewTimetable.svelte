@@ -2,7 +2,7 @@
   import { timetableByPeriod, settings } from '$lib/stores';
   import TimetableCell from './TimetableCell.svelte';
 
-  export let tableElement: HTMLTableElement;
+  export let timetableElement: HTMLTableElement;
 
   // table strings
   const dash = '\u2013'; // en dash
@@ -35,7 +35,7 @@
 <div class="root">
   <table
     class="timetable"
-    bind:this={tableElement}
+    bind:this={timetableElement}
     style:--print-font-size={`${$settings.fontSize_pt}pt`}
   >
     <caption class="preamble">{preamble}</caption>

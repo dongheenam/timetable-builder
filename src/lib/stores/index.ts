@@ -11,6 +11,8 @@ import persist from './persist.js';
 
 // keys used for storing data in localStorage
 export const STORAGE_KEYS = {
+  version: 'version',
+  time: 'time',
   courseGroups: 'course-groups',
   staffs: 'staffs',
   lessonsLookup: 'lessons-lookup',

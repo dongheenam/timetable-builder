@@ -7,8 +7,6 @@
   export let courseGroup: CourseGroup;
   export let selectedCourse: Course | undefined;
 
-  $: console.log(courseGroup);
-
   export let removeCourseGroup: () => void;
 
   // TODO: fix TypeScript error

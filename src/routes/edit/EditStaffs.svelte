@@ -16,7 +16,7 @@
 </script>
 
 <div class="root">
-  <p>Staff codes entered in the tables on the right will appear here.</p>
+  <p>Staff codes in the lessons will appear here.</p>
   <div class="table-wrapper">
     <EditableTable items={$staffs} columns={COLUMNS} />
   </div>

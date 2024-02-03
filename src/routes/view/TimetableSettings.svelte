@@ -5,11 +5,13 @@
   import Range from '$lib/components/Range.svelte';
   import Card from '$lib/components/Card.svelte';
 
-  export let tableElement: HTMLElement | undefined;
+  export let timetableElement: HTMLElement | undefined;
+  export let legendElement: HTMLElement | undefined;
 
   // get date in YYYY-MM-DD format
   const dateString = new Date().toISOString().split('T')[0];
-  const filename = 'timetable_' + dateString;
+  const timetableFilename = 'timetable_' + dateString;
+  const legendFilename = 'legend_' + dateString;
 </script>
 
 <Card title="Settings">
@@ -34,8 +36,14 @@
         <Button
           color="primary"
           variant="filled"
-          on:click={() => printElement(tableElement, filename)}
+          on:click={() => printElement(timetableElement, timetableFilename)}
           >Print timetable</Button
+        >
+        <Button
+          color="primary"
+          variant="outline"
+          on:click={() => printElement(legendElement, legendFilename)}
+          >Print legend</Button
         >
       </div>
     </div>

@@ -23,13 +23,15 @@
     }
     const loaded = await new Response(files[0]).json();
     data = {
-      version: loaded.version,
+      [STORAGE_KEYS.version]: loaded.version,
+      [STORAGE_KEYS.time]: loaded.time,
       [STORAGE_KEYS.courseGroups]: loaded[STORAGE_KEYS.courseGroups],
       [STORAGE_KEYS.staffs]: loaded[STORAGE_KEYS.staffs],
       [STORAGE_KEYS.lessonsLookup]: loaded[STORAGE_KEYS.lessonsLookup],
       [STORAGE_KEYS.settings]: loaded[STORAGE_KEYS.settings],
     };
     isReady = true;
+    console.log('Data loaded:', data);
     if (data.version !== APP_VERSION) {
       status = `Warning! Data was saved from verison ${data.version}.`;
     } else {
@@ -48,10 +50,11 @@
   const loadConfig = () => {
     try {
       for (const key of Object.values(STORAGE_KEYS)) {
-        if (key in data) {
+        if (key === STORAGE_KEYS.version || key === STORAGE_KEYS.time) continue;
+        if (data[key] !== undefined) {
           const store = storeMap[key];
           const value = data[key] as StoredIn<typeof store>;
-          //@ts-expect-error: we know the type is correct, unless we change the store structure in the future.
+          //@ts-expect-error: we know the type is correct, unless we update the scraper/app versions
           store.set(value);
           console.log('Loaded', key);
         }
@@ -74,9 +77,9 @@
   <p>Upload the saved config file.</p>
   <div class="control">
     {#if isReady}
-      <Button color="primary" variant="filled" on:click={() => loadConfig()}
-        >Load config</Button
-      >
+      <Button color="primary" variant="filled" on:click={() => loadConfig()}>
+        Load config
+      </Button>
     {:else}
       <input type="file" bind:files accept=".json" />
     {/if}

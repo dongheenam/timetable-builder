@@ -17,7 +17,8 @@
     try {
       // create JSON config file containing all stores
       const data = {
-        version: APP_VERSION,
+        [STORAGE_KEYS.version]: APP_VERSION,
+        [STORAGE_KEYS.time]: new Date().toISOString(),
         [STORAGE_KEYS.courseGroups]: $courseGroups,
         [STORAGE_KEYS.staffs]: $staffs,
         [STORAGE_KEYS.lessonsLookup]: $lessonsLookup,
